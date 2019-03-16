@@ -1,0 +1,17 @@
+# Node
+node_modules/
+
+# WordPress Folder
+wp/
+
+# MacOS
+.DS_Store
+
+# Zip Files
+*.zip
+
+# Build Files
+src/style.css
+src/style.css.map
+src/script.js
+src/script.js.map

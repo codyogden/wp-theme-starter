@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+/**
+ * Versioner
+ *
+ * This finds and replaces %VERSION% in specific files where
+ * the version is represented in WordPress.
+ */
+
+// Dependencies
+const fs = require('fs');
+const replace = require('replace-in-file');
+const chalk = require('chalk');
+
+// Grab the version from package.json
+const pkg = require('../package.json');
+
+// node-sass render options
+const renderOptions = {
+  file: 'src/scss/style.scss',
+  outFile: 'src/style.css',
+  sourceMap: 'src/style.css.map',
+};
+
+// For production builds, we're replacing the version in style.css
+if (process.env.NODE_ENV === "production")
+  replace({
+    files: 'src/style.css',
+    from: /%VERSION%/g,
+    to: pkg.version,
+  })
+  .then(changes =>{
+    console.log(chalk.white(`Updated ${renderOptions.outFile} with version ${pkg.version}.`))
+  })
+  .catch(error => {
+    console.error('Error Occured', error);
+  });
